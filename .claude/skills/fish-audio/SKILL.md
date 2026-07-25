@@ -163,6 +163,33 @@ play(audio_stream)  # from fishaudio.utils
 The async client's `stream_websocket()` takes an async generator and is
 awaited. See `references/http-api.md` for the raw WebSocket protocol.
 
+## Direction & emotion tags (inline)
+
+You steer *delivery* — emotion, tone, pacing, non-speech sounds — by writing
+tags **directly into the `text`**. There's no separate parameter; the tags
+travel with the text. The syntax depends on the model:
+
+- **`s2-pro` / `s2` (default)** → `[square brackets]`, free-form natural
+  language. No fixed vocabulary: `[chuckle]`, `[emphasis]`, `[whispering]`,
+  `[laughing nervously]`. Plus `(parentheses)` cues for pauses/sounds:
+  `(break)`, `(long-break)`, `(breath)`, `(laugh)`, `(sigh)`.
+- **`s1` / `s1-mini`** → `(parentheses)` from a *fixed* set, e.g. `(angry)`,
+  `(excited)`, `(whispering)`, `(laughing)`.
+
+```python
+audio = client.tts.convert(
+    text="[chuckle] When you're creating something new, there's this "
+         "[emphasis] beautiful mix of wonder and fear.",
+    reference_id="933563129e564b19a115bedd57b7406a",
+    # model="s2-pro" is the default; brackets match S2
+)
+```
+
+Match the syntax to the model — bracket tags on an S1 model (or vice-versa)
+tend to be read aloud or ignored. For the full S1 marker list, the S2
+paralanguage cues, and guidance on choosing, read
+`references/emotion-tags.md`.
+
 ## Voice cloning
 
 Two ways to clone, depending on whether you'll reuse the voice.
