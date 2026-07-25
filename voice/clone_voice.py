@@ -25,6 +25,11 @@ from pathlib import Path
 
 import requests
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _env import load_env_file  # noqa: E402
+
+load_env_file()
+
 API_BASE = os.environ.get("FISH_API_BASE", "https://api.fish.audio")
 CONFIG_PATH = Path(__file__).with_name("voice-config.json")
 
