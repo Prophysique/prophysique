@@ -1,0 +1,27 @@
+# One-click setup on Render: New → Blueprint → pick this repo.
+# Render will ask for GRANDRANKER_SECRET and SITE_URL (marked sync: false) — paste them there.
+databases:
+  - name: prophysique-db
+    plan: free
+    databaseName: prophysique
+    user: prophysique
+
+services:
+  - type: web
+    name: prophysique-blog
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/articles-webhook
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: prophysique-db
+          property: connectionString
+      - key: GRANDRANKER_SECRET
+        sync: false
+      - key: SITE_URL
+        sync: false

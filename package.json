@@ -1,0 +1,20 @@
+{
+  "name": "prophysique-blog",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pro Physique Fitness blog — receives articles from GrandRanker via webhook",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "migrate": "node src/migrate.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.3",
+    "express": "^5.2.1",
+    "pg": "^8.23.0"
+  }
+}
